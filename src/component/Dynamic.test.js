@@ -1,7 +1,7 @@
 import { h } from 'preact';
 import { render } from '@testing-library/preact';
 import { expect } from 'expect';
-import { Dynamic } from './Dynamic';
+import { ComponentRegistryContext, Dynamic } from './Dynamic';
 
 
 const Container = ({ children, registry }) => (
@@ -36,6 +36,21 @@ test('Dynamic should render', () => {
         />
     );
     expect(children).toMatchSnapshot();
+});
+
+test('Dynamic should render with contextual registry', () => {
+    expect(render(
+        <ComponentRegistryContext.Provider value={registry}>
+            <Dynamic
+                options={{
+                    name: 'greeting',
+                    options: {
+                        name: 'Tests',
+                    },
+                }}
+            />
+        </ComponentRegistryContext.Provider>
+    ).container.children).toMatchSnapshot();
 });
 
 test('Dynamic should render complex trees', () => {
@@ -75,4 +90,12 @@ test('Dynamic should render component not found', () => {
             />
         ).container.children
     ).toMatchSnapshot();
+});
+
+test('Dynamic no registry', () => {
+    expect(() => render(
+        <Dynamic
+            options={{ name: 'greeting' }}
+        />
+    )).toThrow();
 });

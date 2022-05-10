@@ -1,4 +1,5 @@
-import { h } from 'preact';
+import { createContext, h } from 'preact';
+import { useContext } from 'preact/hooks';
 
 const getErrorComponent = (registry) => registry.error || (({ children }) => (<div className="error">{children})</div>));
 
@@ -19,13 +20,14 @@ export const Dynamic = ({
     registry,
     options: { name, options },
 }) => {
-    const internalRegistry = registry; // todo: support optional context if registry is false?
+    const contextualRegistry = useContext(ComponentRegistryContext);
+    const internalRegistry = registry || contextualRegistry || {};
 
     if (!name) {
         return (<NoComponentFound registry={internalRegistry} name={name} />);
     }
 
-    const component = registry[name];
+    const component = internalRegistry[name];
     if (!component) {
         return (<NoComponentFound registry={internalRegistry} name={name} />);
     }
@@ -39,3 +41,5 @@ export const Dynamic = ({
         },
         children || []);
 };
+
+export const ComponentRegistryContext = createContext();

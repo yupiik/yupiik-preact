@@ -1,5 +1,9 @@
-import { Dynamic } from './component/Dynamic';
+import {
+    Dynamic,
+    ComponentRegistryContext
+} from './component/Dynamic';
 
 export {
     Dynamic,
+    ComponentRegistryContext,
 };

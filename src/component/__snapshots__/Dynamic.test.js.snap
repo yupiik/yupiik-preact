@@ -38,3 +38,13 @@ HTMLCollection [
   </div>,
 ]
 `;
+
+exports[`Dynamic should render with contextual registry 1`] = `
+HTMLCollection [
+  <h1>
+    Hello 
+    Tests
+    !
+  </h1>,
+]
+`;
