@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Dynamic should render 1`] = `
+HTMLCollection [
+  <h1>
+    Hello 
+    Tests
+    !
+  </h1>,
+]
+`;
+
+exports[`Dynamic should render complex trees 1`] = `
+HTMLCollection [
+  <div
+    class="container"
+  >
+    <h1>
+      Hello 
+      Yupiik
+      !
+    </h1>
+    <div>
+      Some content.
+    </div>
+  </div>,
+]
+`;
+
+exports[`Dynamic should render component not found 1`] = `
+HTMLCollection [
+  <div
+    class="error"
+  >
+    No component 
+     found!
+    )
+  </div>,
+]
+`;
