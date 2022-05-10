@@ -1,0 +1,21 @@
+{
+  "name": "@yupiik/dynamic",
+  "description": "A simple preact based library to help configuring an UI.",
+  "main": "dist/index.js",
+  "mainSrc": "src/index.js",
+  "author": "Yupiik <contact@yupiik.com>",
+  "license": "ISC",
+  "keywords": [
+    "preact",
+    "yupiik"
+  ],
+  "scripts": {
+    "clean": "rm -Rf dist",
+    "build": "node build.js",
+    "publish": "npm publish --access public",
+    "test": "jest",
+    "test:watch": "npx jest --watchAll",
+    "test:updateSnapshot": "npx jest --updateSnapshot",
+    "test:debug": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand"
+  }
+}

@@ -80,3 +80,17 @@ In a real application, you will often have a tree of `Dynamic`.
 If your backend supports bulking (JSON-RPC is highly recommended but GraphQL or other protocols can support it), we recommend you to wrap `Dynamic` to enable to bulk the requests by stashing them and to issue a single HTTP request for the component tree.
 
 It is mainly a matter of abstracting the communication with the backend for the components and having a toggle to know if all subcomponents got an initial render or not.
+
+== Build
+
+Project uses `lerna`.
+To build all modules run:
+
+[source,bash]
+----
+npm i
+lerna run build
+
+# optionally to run tests
+lerna run test
+----

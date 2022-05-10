@@ -17,9 +17,13 @@ module.exports = {
         ]
     },
     transformIgnorePatterns: [
-        "!node_modules/"
+        '!node_modules/'
     ],
     testMatch: [
         '<rootDir>/src/**/*.test.js'
+    ],
+    reporters: [
+        'default',
+        ['jest-html-reporters', { 'publicPath': 'dist/test-reports', 'filename': 'report.html' }]
     ]
 };
