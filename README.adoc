@@ -1,0 +1,82 @@
+= @yupiik/preact
+
+[abstract]
+Simple library enabling to render `preact` components from a registry.
+Overall goal is to configure its UI.
+
+IMPORTANT: this library is not yet deployed on npm so you will have to install it locally yourself for now.
+
+== Usage
+
+[source,js]
+----
+import { render } from 'preact';
+import { Dynamic } from '@yupiik/preact';
+
+const registry = {
+    component1: Component1,
+    component2: Component2,
+    component3: Component3,
+}
+
+render(
+    <Dynamic
+        registry={registry}
+        options={{
+            name: 'component1',
+            options: {
+                // whatever options component1 supports
+            }
+        }}
+    />,
+    document.getElementById('app'));
+----
+
+== Registry context usage
+
+In most applications, you will mix `Dynamic` with custom components.
+For that case it is worth injecting the registry as a context at a high level of the application:
+
+
+[source,js]
+----
+import { render } from 'preact';
+import { Dynamic, ComponentRegistryContext } from '@yupiik/preact';
+import MyComponent from './my-component';
+
+const registry = {
+    component1: Component1,
+    component2: Component2,
+    component3: Component3,
+}
+
+render(
+    <ComponentRegistryContext.Provider value={registry}>
+        <MyComponent/>
+    </ComponentRegistryContext.Provider>,
+    document.getElementById('app'));
+----
+
+This simple snippet enables any nested component like `MyComponent` to reuse `Dynamic` without specifying the registry which allows to write reusable component more easily:
+
+[source,js]
+----
+export const MyComponent = () => (
+    <Dynamic
+        options={{
+            name: 'component1',
+            options: {
+                // whatever options component1 supports
+            }
+        }}
+    />
+);
+----
+
+== Note about the configuration
+
+In a real application, you will often have a tree of `Dynamic`.
+
+If your backend supports bulking (JSON-RPC is highly recommended but GraphQL or other protocols can support it), we recommend you to wrap `Dynamic` to enable to bulk the requests by stashing them and to issue a single HTTP request for the component tree.
+
+It is mainly a matter of abstracting the communication with the backend for the components and having a toggle to know if all subcomponents got an initial render or not.
