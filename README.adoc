@@ -89,8 +89,8 @@ To build all modules run:
 [source,bash]
 ----
 npm i
-lerna run build
+npm run build
 
 # optionally to run tests
-lerna run test
+lerna test
 ----

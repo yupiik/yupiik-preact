@@ -11,6 +11,10 @@
     "lerna": "^4.0.0",
     "preact": "^10.7.2"
   },
+  "scripts": {
+    "build": "lerna run build",
+    "test": "lerna run test"
+  },
   "keywords": [
     "preact",
     "yupiik"
