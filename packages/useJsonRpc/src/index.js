@@ -9,6 +9,7 @@ export const useJsonRpc = ({
     needsSecurity = true,
     fetchOptions = {},
     dependencies = [],
+    fetch = (window || {}).fetch,
 }) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(undefined);
@@ -74,5 +75,5 @@ export const useJsonRpc = ({
         return onExit;
     }, deps);
 
-    return [ loading, error, data ];
+    return [loading, error, data];
 };

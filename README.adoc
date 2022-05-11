@@ -1,17 +1,17 @@
 = @yupiik/preact
 
 [abstract]
-Simple library enabling to render `preact` components from a registry.
+Simple library enabling to render `preact` components from a registry + config and some utilities around JSON-RPC as a hook.
 Overall goal is to configure its UI.
 
 IMPORTANT: this library is not yet deployed on npm so you will have to install it locally yourself for now.
 
-== Usage
+== Dynamic component Usage
 
 [source,js]
 ----
 import { render } from 'preact';
-import { Dynamic } from '@yupiik/preact';
+import { Dynamic } from '@yupiik/dynamic';
 
 const registry = {
     component1: Component1,
@@ -32,7 +32,7 @@ render(
     document.getElementById('app'));
 ----
 
-== Registry context usage
+=== Registry context usage
 
 In most applications, you will mix `Dynamic` with custom components.
 For that case it is worth injecting the registry as a context at a high level of the application:
@@ -73,13 +73,82 @@ export const MyComponent = () => (
 );
 ----
 
-== Note about the configuration
+=== Note about the configuration
 
 In a real application, you will often have a tree of `Dynamic`.
 
 If your backend supports bulking (JSON-RPC is highly recommended but GraphQL or other protocols can support it), we recommend you to wrap `Dynamic` to enable to bulk the requests by stashing them and to issue a single HTTP request for the component tree.
 
 It is mainly a matter of abstracting the communication with the backend for the components and having a toggle to know if all subcomponents got an initial render or not.
+
+== useJsonRpc hook
+
+=== Usage
+
+[source,js]
+----
+import { render } from 'preact';
+import { useJsonRpc } from '@yupiik/use-json-rpc';
+
+export const MyComponent = ({}) => {
+    const [ loading, error, data ] = useJsonRpc({
+        payload: {
+            jsonrpc: '2.0',
+            method: 'my-server-method',
+            params: {},
+        },
+        // optional
+        endpoint: '/jsonrpc',
+        needsSecurity: true,
+        fetchOptions: {},
+        dependencies: [],
+    });
+
+    if (loading) {
+        return (<Skeleton />);
+    }
+
+    if (error) {
+        return (<ErrorAlert error={error} />);
+    }
+    
+    if (!data) {
+        return (<div>No data.</div>);
+    }
+
+    return (<pre>{JSON.stringify(data, null, 2)}</pre>);
+};
+----
+
+=== Configuration
+
+`useJsonRpc` hook takes the following properties in its object parameter:
+
+[cols="headers"]
+|===
+| Name | Default | Description
+|payload| - | JSON-RPC request, can be an array or an object.
+|endpoint|/jsonrpc|JSON-RPC endpoint to call
+|needsSecurity|true|Should `Authorization` header be appended from `SecurityContext.access_token` value as a bearer token.
+|fetchOptions|`{}`|Any `fetch` option merged with computed ones from other parameters.
+|dependencies|`[endpoint,payload]`|`useEffect` dependencies, by default it uses the request but customizing it can enable to avoid rendering loops.
+|fetch|`fetch`|The `fetch` function to use, default to global javascript one.
+|===
+
+=== Use `SecurityContext` provider
+
+When you keep `needsSecurity` to `true`, you must pass a `SecurityContext.Provider`:
+
+[source,js]
+----
+const MyComponent = () => (
+    <SecurityContext.Provider value={{access_token: ....}}>
+        <MyComponentUsingUseJsonRpc />
+    </SecurityContext.Provider>
+);
+----
+
+TIP: it is often done at a high level of the application to be shared accross all components.
 
 == Build
 
