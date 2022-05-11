@@ -1,7 +1,5 @@
 const esbuild = require('esbuild');
 
-const dev = process.env.NODE_ENV === 'dev';
-
 const copyUtilities = () => {
     const fs = require('fs');
     if (!fs.existsSync('dist/esbuild')) {
