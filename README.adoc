@@ -131,8 +131,9 @@ export const MyComponent = ({}) => {
 |endpoint|/jsonrpc|JSON-RPC endpoint to call
 |needsSecurity|true|Should `Authorization` header be appended from `SecurityContext.access_token` value as a bearer token.
 |fetchOptions|`{}`|Any `fetch` option merged with computed ones from other parameters.
-|dependencies|`[endpoint,payload]`|`useEffect` dependencies, by default it uses the request but customizing it can enable to avoid rendering loops.
+|dependencies|`[endpoint,payload,providedData]`|`useEffect` dependencies, by default it uses the request but customizing it can enable to avoid rendering loops.
 |fetch|`fetch`|The `fetch` function to use, default to global javascript one.
+|providedData|-|The JSON-RPC data result (if provided, ie thruthy, it will be used and the server call will be bypassed).
 |===
 
 === Use `SecurityContext` provider
@@ -160,7 +161,7 @@ To build all modules run:
 [source,bash]
 ----
 npm i
-npm run build
+npm run build --stream
 
 # optionally to run tests
 lerna test

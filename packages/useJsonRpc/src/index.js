@@ -10,14 +10,21 @@ export const useJsonRpc = ({
     fetchOptions = {},
     dependencies = [],
     fetch = (window || {}).fetch,
+    providedData,
 }) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(undefined);
     const [data, setData] = useState(undefined);
     const securityContext = useContext(SecurityContext);
 
-    const deps = dependencies && !dependencies.length ? dependencies : [endpoint, payload];
+    const deps = dependencies && !dependencies.length ? dependencies : [endpoint, payload, providedData];
     useEffect(async () => {
+        if (providedData) {
+            setData(providedData);
+            setLoading(false);
+            return;
+        }
+
         if (needsSecurity && !securityContext) {
             setError('You must be logged to access this page.');
             setLoading(false);
