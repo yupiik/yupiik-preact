@@ -6,7 +6,7 @@ Overall goal is to configure its UI.
 
 IMPORTANT: this library is not yet deployed on npm so you will have to install it locally yourself for now.
 
-== Dynamic component Usage
+== Dynamic component Usage (@yupiik/dynamic)
 
 [source,js]
 ----
@@ -81,7 +81,7 @@ If your backend supports bulking (JSON-RPC is highly recommended but GraphQL or 
 
 It is mainly a matter of abstracting the communication with the backend for the components and having a toggle to know if all subcomponents got an initial render or not.
 
-== useJsonRpc hook
+== useJsonRpc hook (@yupiik/use-json-rpc)
 
 === Usage
 
@@ -141,7 +141,9 @@ When you keep `needsSecurity` to `true`, you must pass a `SecurityContext.Provid
 
 [source,js]
 ----
-const MyComponent = () => (
+import { SecurityContext } from '@yupiik/use-json-rpc';
+
+export const MyComponent = () => (
     <SecurityContext.Provider value={{access_token: ....}}>
         <MyComponentUsingUseJsonRpc />
     </SecurityContext.Provider>
