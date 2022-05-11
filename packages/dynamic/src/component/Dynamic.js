@@ -27,19 +27,19 @@ export const Dynamic = ({
         return (<NoComponentFound registry={internalRegistry} name={name} />);
     }
 
-    const component = internalRegistry[name];
-    if (!component) {
+    const Component = internalRegistry[name];
+    if (!Component) {
         return (<NoComponentFound registry={internalRegistry} name={name} />);
     }
 
     const { children, ...rest } = options || {};
-    return h(
-        component,
-        {
-            registry: internalRegistry,
-            ...(rest || {}),
-        },
-        children || []);
+    return (
+        <Component
+            registry={internalRegistry}
+            {...(rest || {})}>
+            {children || []}
+        </Component >
+    );
 };
 
 export const ComponentRegistryContext = createContext();
