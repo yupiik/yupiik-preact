@@ -17,5 +17,8 @@
     "test:watch": "npx jest --watchAll",
     "test:updateSnapshot": "npx jest --updateSnapshot",
     "test:debug": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand"
+  },
+  "devDependencies": {
+    "json-logic-js": "^2.0.2"
   }
 }

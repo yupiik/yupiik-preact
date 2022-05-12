@@ -18,7 +18,7 @@ const NoComponentFound = (registry, name) => {
  */
 export const Dynamic = ({
     registry,
-    options: { name, options },
+    options: { name, options = {} },
 }) => {
     const contextualRegistry = useContext(ComponentRegistryContext);
     const internalRegistry = registry || contextualRegistry || {};

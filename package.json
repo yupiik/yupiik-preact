@@ -13,8 +13,8 @@
     "preact": "^10.7.2"
   },
   "scripts": {
-    "build": "lerna run build",
-    "test": "lerna run test"
+    "build": "lerna run build --stream",
+    "test": "lerna run test --stream"
   },
   "keywords": [
     "preact",
