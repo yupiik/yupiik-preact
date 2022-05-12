@@ -116,7 +116,6 @@ test('FromConfiguratonHoc should render components with state', async () => {
                         { // <button onClick={() => dispatch('increment')}>+1</button>
                             name: 'button',
                             options: {
-                                name: 'Yupiik',
                                 callbacks: {
                                     onClick: {
                                         'fn': [
@@ -133,7 +132,6 @@ test('FromConfiguratonHoc should render components with state', async () => {
                         { // <button onClick={() => dispatch('decrement')}>-1</button>
                             name: 'button',
                             options: {
-                                name: 'Yupiik',
                                 callbacks: {
                                     onClick: {
                                         'fn': [
@@ -150,7 +148,6 @@ test('FromConfiguratonHoc should render components with state', async () => {
                         { // <button onClick={() => dispatch('reset')}>reset</button>
                             name: 'button',
                             options: {
-                                name: 'Yupiik',
                                 callbacks: {
                                     onClick: [
                                         {
