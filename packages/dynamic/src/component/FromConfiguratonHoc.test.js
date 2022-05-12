@@ -12,11 +12,11 @@ const simpleComponent = name => ({ registry, children, state, dispatch, ...props
                 if (typeof it === 'object' && it.options) {
                     if (it.name) { // not wrapped, we tolerate it since it is simpler to write
                         return (
-                            <FromConfiguratonHoc registry={registry} options={it} parentState={state} />
+                            <FromConfiguratonHoc registry={registry} options={it} parentState={state} parentDispatch={dispatch} />
                         );
                     }
                     return (
-                        <FromConfiguratonHoc registry={registry} {...it} parentState={state} />
+                        <FromConfiguratonHoc registry={registry} {...it} parentState={state} parentDispatch={dispatch} />
                     );
                 }
                 return it;
@@ -54,7 +54,7 @@ test('FromConfiguratonHoc should render static components', () => {
 // https://preactjs.com/guide/v10/hooks/#usereducer
 // and
 // https://preactjs.com/guide/v10/preact-testing-library/#usage
-test.only('FromConfiguratonHoc should render components with state', async () => {
+test('FromConfiguratonHoc should render components with state', async () => {
     const { container: { children } } = render(
         <TestFCHoc
             name="div"
@@ -73,18 +73,18 @@ test.only('FromConfiguratonHoc should render components with state', async () =>
                     */
                     reducerJsonLogic: {
                         'if': [
-                            { '==': [{ 'var': 'action.type' }, 'increment'] },
+                            { '==': [{ 'var': 'action' }, 'increment'] },
                             { '+': [{ 'var': 'state' }, 1] },
                             {
                                 'if': [
-                                    { '==': [{ 'var': 'action.type' }, 'decrement'] },
+                                    { '==': [{ 'var': 'action' }, 'decrement'] },
                                     { '-': [{ 'var': 'state' }, 1] },
                                     {
                                         'if': [
-                                            { '==': [{ 'var': 'action.type' }, 'reset'] },
+                                            { '==': [{ 'var': 'action' }, 'reset'] },
                                             0,
                                             // not a real operator but will fail and it is what we want
-                                            { 'unexpected': [] },
+                                            { 'invalid_action': [] },
                                         ],
                                     },
                                 ],
@@ -118,11 +118,12 @@ test.only('FromConfiguratonHoc should render components with state', async () =>
                             options: {
                                 name: 'Yupiik',
                                 callbacks: {
-                                    onClick: [
-                                        'fn',
-                                        { var: 'dispatch' },
-                                        'increment',
-                                    ],
+                                    onClick: {
+                                        'fn': [
+                                            { var: 'dispatch' },
+                                            'increment'
+                                        ],
+                                    },
                                 },
                                 configuration: {
                                     children: ['+1'],
@@ -134,11 +135,12 @@ test.only('FromConfiguratonHoc should render components with state', async () =>
                             options: {
                                 name: 'Yupiik',
                                 callbacks: {
-                                    onClick: [
-                                        'fn',
-                                        { var: 'dispatch' },
-                                        'decrement',
-                                    ],
+                                    onClick: {
+                                        'fn': [
+                                            { var: 'dispatch' },
+                                            'decrement',
+                                        ],
+                                    },
                                 },
                                 configuration: {
                                     children: ['-1'],
@@ -151,9 +153,12 @@ test.only('FromConfiguratonHoc should render components with state', async () =>
                                 name: 'Yupiik',
                                 callbacks: {
                                     onClick: [
-                                        'fn',
-                                        { var: 'dispatch' },
-                                        'reset',
+                                        {
+                                            'fn': [
+                                                { var: 'dispatch' },
+                                                'reset',
+                                            ],
+                                        }
                                     ],
                                 },
                                 configuration: {

@@ -1,6 +1,6 @@
+import jsonLogic from "json-logic-js";
 import { h } from "preact";
-import { useEffect, useMemo, useReducer } from "preact/hooks";
-import jsonLogic from 'json-logic-js';
+import { useEffect, useMemo, useReducer, useState } from "preact/hooks";
 import { Dynamic } from "./Dynamic";
 
 jsonLogic.add_operation('fn', function (fn, params) {
@@ -12,8 +12,7 @@ const rewriteProp = (source, args) => {
         return source.map(it => typeof it === 'object' ? rewriteProp(it, args) : it);
     }
     if (source.jsonLogic) {
-        const value = jsonLogic.apply(source.jsonLogic, args);
-        return value;
+        return jsonLogic.apply(source.jsonLogic, args);
     }
     return source;
 };
@@ -30,6 +29,7 @@ const rewriteProp = (source, args) => {
  * @param {object} callbacks the callbacks properties definition in JSON-Logic format, key is the callback name and value its JSON-Logic chain. The JSON-Logic can use variables `state`, `dispatch` and `event` (the callback event).
  * @param {object} configuration properties to passthrough the underlying component.
  * @param {object} parentState if no {@constant initialState} is passed it will be used to overwrite it, enables to forward through children the state when children are compatible.
+ * @param {object} parentDispatch parent dispatch callback (to be able to modify parent state).
  */
 
 // todo: this state management is all wrong, ensure to have a HoC which handles the state and to propagate its
@@ -37,6 +37,7 @@ const rewriteProp = (source, args) => {
 export const FromConfiguratonHoc = ({
     registry,
     parentState = undefined,
+    parentDispatch = undefined,
     options: {
         name,
         options: {
@@ -52,23 +53,33 @@ export const FromConfiguratonHoc = ({
 }) => {
     const [state, dispatch] = useReducer(
         (currentState, action) => {
-            if (reducerJsonLogic) {
-                return jsonLogic.apply(reducerJsonLogic, { parentState, state: currentState, action });
+            if (action.type === '$state') {
+                return action.value;
             }
-            // todo: nicer default like inject action type in current state?
-            return currentState;
+            if (reducerJsonLogic) {
+                return jsonLogic.apply(reducerJsonLogic, { parentState, parentDispatch, state: currentState, action });
+            }
+            if (parentDispatch) { // bubble up if there is no own definition
+                parentDispatch(action);
+            }
+            // here there is no reducerJsonLogic so we just back with parent state
+            return parentState;
         },
-        initialState || parentState);
+        initialState,
+        localState => localState === undefined ? parentState : localState);
 
     useEffect(() => {
+        if (!reducerJsonLogic) {
+            dispatch({ type: '$state', value: parentState });
+        }
+
         if (!useEffectCallback) {
             return;
         }
 
-        // todo: handle promise/cleanup call
         if (Array.isArray(useEffectCallback)) {
             return useEffectCallback
-                .map(it => jsonLogic.apply(it, { parentState, state, dispatch }))
+                .map(it => jsonLogic.apply(it, { parentState, parentDispatch, state, dispatch }))
                 .filter(it => it)
                 .reduce((a, i) => {
                     if (typeof i === 'function') {
@@ -80,49 +91,49 @@ export const FromConfiguratonHoc = ({
                 }, () => { });
         }
 
-        const result = jsonLogic.apply(useEffectCallback, { parentState, state, dispatch });
+        const result = jsonLogic.apply(useEffectCallback, { parentState, parentDispatch, state, dispatch });
         if (typeof result === 'function') {
             return result;
         }
-    }, [useEffectCallback, dispatch]);
+    }, [useEffectCallback, initialState, parentState]);
 
-    const computedOptions = useMemo(() => ({
-        state,
-        dispatch,
-        ...Object
+    const computedOptions = useMemo(() => {
+        const opts = Object
             .keys(configuration)
             .reduce((aggregator, name) => {
                 const value = configuration[name];
-                if (typeof value === 'object') {
-                    aggregator[name] = rewriteProp(value, {
+                aggregator[name] = typeof value === 'object' ?
+                    rewriteProp(value, {
                         parentState,
+                        parentDispatch,
                         state,
                         dispatch,
-                    });
-                } else {
-                    aggregator[name] = value;
-                }
+                    }) :
+                    value;
                 return aggregator;
-            }, {}),
-        ...Object
+            }, {});
+
+        const callbackOpts = Object
             .keys(callbacks)
             .reduce((aggregator, callback) => {
-                aggregator[callback] = e => {
-                    return jsonLogic.apply(callbacks[callback], {
-                        parentState,
-                        state,
-                        dispatch,
-                        event: e,
-                    });
-                };
+                const spec = callbacks[callback];
+                aggregator[callback] = e => jsonLogic.apply(spec, {
+                    parentState,
+                    parentDispatch,
+                    state,
+                    dispatch,
+                    event: e,
+                });
                 return aggregator;
-            }, {}),
-    }), [callbacks, configuration, state]);
+            }, {});
+
+        return { name, options: { state, dispatch, ...opts, ...callbackOpts } };
+    }, [callbacks, configuration, state, parentState]);
 
     return (
         <Dynamic
             registry={registry}
-            options={{ name, options: computedOptions }}
+            options={computedOptions}
         />
     )
 };

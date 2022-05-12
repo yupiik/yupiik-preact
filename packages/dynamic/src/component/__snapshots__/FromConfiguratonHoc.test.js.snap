@@ -8,7 +8,7 @@ HTMLCollection [
     <span
       data-testid="current"
     >
-      Current value: 
+      Current value: 0
     </span>
     <button>
       +1
