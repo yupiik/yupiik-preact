@@ -1,36 +1,9 @@
 import { h } from 'preact';
 import { render, fireEvent, screen, waitFor } from '@testing-library/preact';
 import { expect } from 'expect';
-import { FromConfiguratonHoc } from './FromConfiguratonHoc';
+import { FromConfiguratonHoc, HtmlRegistry } from './FromConfiguratonHoc';
 
-const simpleComponent = name => ({ registry, children, state, dispatch, ...props }) => {
-    const Comp = name;
-    return (<Comp {...props}>
-        {children && (Array.isArray(children) ? children : [children])
-            .map(it => {
-                // all the trick is there, wrap the children with FromConfiguratonHoc to enable the configuration to propagate properly 
-                if (typeof it === 'object' && it.options) {
-                    if (it.name) { // not wrapped, we tolerate it since it is simpler to write
-                        return (
-                            <FromConfiguratonHoc registry={registry} options={it} parentState={state} parentDispatch={dispatch} />
-                        );
-                    }
-                    return (
-                        <FromConfiguratonHoc registry={registry} {...it} parentState={state} parentDispatch={dispatch} />
-                    );
-                }
-                return it;
-            })}
-    </Comp>);
-};
-
-const registry = {
-    FromConfiguratonHoc: FromConfiguratonHoc,
-    ...['div', 'button', 'span'].reduce((a, it) => {
-        a[it] = simpleComponent(it);
-        return a;
-    }, {}),
-};
+const registry = HtmlRegistry;
 
 const TestFCHoc = (props) => (<FromConfiguratonHoc registry={registry} options={props} />);
 
