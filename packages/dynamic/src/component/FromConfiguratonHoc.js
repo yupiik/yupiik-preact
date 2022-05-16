@@ -31,9 +31,6 @@ const rewriteProp = (source, args) => {
  * @param {object} parentState if no {@constant initialState} is passed it will be used to overwrite it, enables to forward through children the state when children are compatible.
  * @param {object} parentDispatch parent dispatch callback (to be able to modify parent state).
  */
-
-// todo: this state management is all wrong, ensure to have a HoC which handles the state and to propagate its
-//       state and dispatch values to all children
 export const FromConfiguratonHoc = ({
     registry,
     parentState = undefined,
