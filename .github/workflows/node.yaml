@@ -1,0 +1,32 @@
+name: Github CI
+
+on: [push, pull_request]
+
+env:
+  YUPIIK_CI: 'true'
+
+jobs:
+  build:
+    name: Main Build
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Clone
+        uses: actions/checkout@v3
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: |
+            package-lock.json
+            packages/*/package-lock.json
+            node_modules
+            packages/*/node_modules
+      - name: 'Setup Project'
+        run: |
+          npm install
+          npm run bootstrap
+      - name: 'Build'
+        run: lerna run build
+      - name: 'Test'
+        run: lerna run test
