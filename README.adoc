@@ -32,6 +32,49 @@ render(
     document.getElementById('app'));
 ----
 
+=== FromConfiguratonHoc
+
+`FromConfiguratonHoc` is a companion for `Dynamic` (a HoC actually on top of `Dynamic`) which is purely configuration oriented.
+It handles callbacks, children etc from plain JSON.
+
+==== Configuration
+
+Configuration schema (properties of the component):
+
+[source,js]
+----
+{
+    registry = undefined,
+    parentState = undefined,
+    parentDispatch = undefined,
+    options: {
+        name,
+        options: {
+            useReducerCallback: {
+                initialState = undefined,
+                reducerJsonLogic = false,
+            } = {},
+            useEffectCallback = [],
+            callbacks = {},
+            configuration = {},
+        } = {},
+    },
+}
+----
+
+[options="header"]
+|===
+|Property|Description
+|registry|component registry (key matching the component name)
+| name | the component name in the registry
+| useEffectCallback | the useEffect callbacks properties definition in JSON-Logic format, it can be an array or an object (behaves as an array of 1 element). Each element is a JSON-Logic expression.
+| useReducerCallback | the useReducer callbacks. initialState is the state initial value and reducerJsonLogic the JSON-Logic implementation which takes the current state and action as parameters. JSONLogic take the state and dispatch functions as parameters.
+| callbacks | the callbacks properties definition in JSON-Logic format, key is the callback name and value its JSON-Logic chain. The JSON-Logic can use variables `state`, `dispatch` and `event` (the callback event).
+| configuration | properties to passthrough the underlying component.
+| parentState | if no initialState is passed it will be used to overwrite it, enables to forward through children the state when children are compatible.
+| parentDispatch | parent dispatch callback (to be able to modify parent state).
+|===
+
 === Registry context usage
 
 In most applications, you will mix `Dynamic` with custom components.
@@ -81,6 +124,10 @@ If your backend supports bulking (JSON-RPC is highly recommended but GraphQL or 
 
 It is mainly a matter of abstracting the communication with the backend for the components and having a toggle to know if all subcomponents got an initial render or not.
 
+== ANT Design integration (@yupiik/antd-registry)
+
+`@yupiik/antd-registry` provides a component registry which works with `Dynamic` or `FromConfiguratonHoc`.
+
 == useJsonRpc hook (@yupiik/use-json-rpc)
 
 === Usage
@@ -124,7 +171,7 @@ export const MyComponent = ({}) => {
 
 `useJsonRpc` hook takes the following properties in its object parameter:
 
-[cols="headers"]
+[options="header"]
 |===
 | Name | Default | Description
 |payload| - | JSON-RPC request, can be an array or an object.
