@@ -4,8 +4,11 @@ import {
 } from './component/Dynamic';
 import {
     FromConfiguratonHoc,
-    HtmlRegistry
 } from './component/FromConfiguratonHoc';
+
+import {
+    HtmlRegistry,
+} from './component/registry';
 
 export {
     Dynamic,

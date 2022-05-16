@@ -1,11 +1,15 @@
 import { h } from 'preact';
 import { render, fireEvent, screen, waitFor } from '@testing-library/preact';
 import { expect } from 'expect';
-import { FromConfiguratonHoc, HtmlRegistry } from './FromConfiguratonHoc';
+import { HtmlRegistry } from './registry';
+import { FromConfiguratonHoc } from './FromConfiguratonHoc';
 
-const registry = HtmlRegistry;
-
-const TestFCHoc = (props) => (<FromConfiguratonHoc registry={registry} options={props} />);
+const TestFCHoc = (props) => (
+    <FromConfiguratonHoc
+        registry={HtmlRegistry}
+        options={props}
+    />
+);
 
 test('FromConfiguratonHoc should render static components', () => {
     const { container: { children } } = render(

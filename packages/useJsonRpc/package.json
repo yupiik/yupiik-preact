@@ -13,7 +13,6 @@
     "scripts": {
       "clean": "rm -Rf dist",
       "build": "node build.js",
-      "publish": "npm publish --access public",
       "test": "jest",
       "test:watch": "npx jest --watchAll",
       "test:updateSnapshot": "npx jest --updateSnapshot",

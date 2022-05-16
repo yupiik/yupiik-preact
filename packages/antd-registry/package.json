@@ -1,6 +1,6 @@
 {
-  "name": "@yupiik/dynamic",
-  "description": "A simple preact based library to help configuring an UI.",
+  "name": "@yupiik/antd-registry",
+  "description": "A component registry based on ant+@antd/icons to be used with @yupiik/dynamic components.",
   "main": "dist/index.js",
   "mainSrc": "src/index.js",
   "author": "Yupiik <contact@yupiik.com>",
@@ -14,10 +14,12 @@
     "build": "node build.js",
     "test": "jest",
     "test:watch": "npx jest --watchAll",
-    "test:updateSnapshot": "npx jest --updateSnapshot",
-    "test:debug": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand"
+    "test:updateSnapshot": "npx jest --updateSnapshot"
   },
   "devDependencies": {
-    "json-logic-js": "^2.0.2"
+    "@ant-design/icons": "^4.7.0",
+    "antd": "^4.20.5",
+    "@preact/compat": "^17.0.3",
+    "@yupiik/dynamic": ""
   }
 }

@@ -1,0 +1,122 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should render ant components 1`] = `
+HTMLCollection [
+  <section
+    class="ant-layout layout"
+  >
+    <header
+      class="ant-layout-header"
+    >
+      <div
+        class="logo"
+      />
+      <ul
+        class="ant-menu-overflow ant-menu ant-menu-root ant-menu-horizontal ant-menu-dark"
+        data-menu-list="true"
+        role="menu"
+        tabindex="0"
+      >
+        <li
+          class="ant-menu-overflow-item ant-menu-item ant-menu-item-only-child"
+          data-menu-id="rc-menu-uuid-test-submenu"
+          role="menuitem"
+          style="opacity: 1; order: 0;"
+          tabindex="-1"
+        >
+          <span
+            class="ant-menu-title-content"
+          >
+            sub menu
+          </span>
+        </li>
+        <li
+          aria-hidden="true"
+          class="ant-menu-overflow-item ant-menu-overflow-item-rest ant-menu-submenu ant-menu-submenu-horizontal ant-menu-submenu-disabled"
+          role="none"
+          style="opacity: 0; height: 0px; overflow-y: hidden; order: 9007199254740991; pointer-events: none; position: absolute;"
+        >
+          <div
+            aria-controls="rc-menu-uuid-test-rc-menu-more-popup"
+            aria-disabled="true"
+            aria-expanded="false"
+            aria-haspopup="true"
+            class="ant-menu-submenu-title"
+            data-menu-id="rc-menu-uuid-test-rc-menu-more"
+            role="menuitem"
+          >
+            <span
+              aria-label="ellipsis"
+              class="anticon anticon-ellipsis"
+              role="img"
+            >
+              <svg
+                aria-hidden="true"
+                data-icon="ellipsis"
+                fill="currentColor"
+                focusable="false"
+                height="1em"
+                viewBox="64 64 896 896"
+                width="1em"
+              >
+                <path
+                  d="M176 511a56 56 0 10112 0 56 56 0 10-112 0zm280 0a56 56 0 10112 0 56 56 0 10-112 0zm280 0a56 56 0 10112 0 56 56 0 10-112 0z"
+                />
+              </svg>
+            </span>
+            <i
+              class="ant-menu-submenu-arrow"
+            />
+          </div>
+        </li>
+      </ul>
+      <div
+        aria-hidden="true"
+        style="display: none;"
+      />
+    </header>
+    <main
+      class="ant-layout-content"
+      style="padding: 0px 50px;"
+    >
+      <nav
+        class="ant-breadcrumb"
+        style="margin: 16px 0px;"
+      >
+        <ol>
+          <li>
+            <span
+              class="ant-breadcrumb-link"
+            >
+              <a
+                href="#/"
+              >
+                Home
+              </a>
+            </span>
+            <span
+              class="ant-breadcrumb-separator"
+            >
+              /
+            </span>
+          </li>
+          <li>
+            <span
+              class="ant-breadcrumb-link"
+            >
+              <span>
+                Application List
+              </span>
+            </span>
+            <span
+              class="ant-breadcrumb-separator"
+            >
+              /
+            </span>
+          </li>
+        </ol>
+      </nav>
+    </main>
+  </section>,
+]
+`;

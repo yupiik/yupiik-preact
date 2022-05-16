@@ -37,7 +37,7 @@ export const Dynamic = ({
         <Component
             registry={internalRegistry}
             {...(rest || {})}>
-            {children || []}
+            {children}
         </Component >
     );
 };

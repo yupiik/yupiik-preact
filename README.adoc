@@ -161,8 +161,9 @@ To build all modules run:
 [source,bash]
 ----
 npm i
-npm run build --stream
+npm run bootstrap
+npm run build
 
 # optionally to run tests
-lerna test
+npm run test
 ----
