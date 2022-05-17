@@ -1,11 +1,7 @@
-import jsonLogic from "json-logic-js";
 import { h } from "preact";
 import { useEffect, useMemo, useReducer } from "preact/hooks";
 import { Dynamic } from "./Dynamic";
-
-jsonLogic.add_operation('fn', function (fn, params) {
-    return fn(params);
-});
+import jsonLogic from './json-logic.operators';
 
 const rewriteProp = (source, args) => {
     if (Array.isArray(source)) {
