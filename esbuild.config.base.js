@@ -5,7 +5,8 @@ const preactCompatPlugin = {
     name: 'preact-react-alias',
 
     setup(build) {
-        const preact = path.join(process.cwd(), 'node_modules', 'preact', 'compat', 'dist', 'compat.module.js');
+        const preact = path.join(process.cwd(), '..', '..', 'node_modules', 'preact', 'compat', 'dist', 'compat.module.js');
+        console.log(preact);
         build.onResolve({ filter: /^(react-dom|react)$/ }, () => ({ path: preact }));
     }
 };

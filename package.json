@@ -1,16 +1,16 @@
 {
   "name": "@yupiik/preact",
   "devDependencies": {
-    "@testing-library/preact": "^2.0.1",
-    "@testing-library/preact-hooks": "^1.1.0",
-    "esbuild": "^0.14.38",
+    "@testing-library/preact": "^3.2.3",
+    "babel-jest": "^29.7.0",
+    "esbuild": "^0.19.5",
     "esbuild-jest": "^0.5.0",
     "jest": "^28.1.0",
-    "jest-environment-jsdom": "^28.1.0",
-    "jest-html-reporters": "^3.0.6",
-    "jest-watch-typeahead": "^1.1.0",
-    "lerna": "^4.0.0",
-    "preact": "^10.7.2"
+    "jest-environment-jsdom": "^29.7.0",
+    "jest-html-reporters": "^3.1.4",
+    "jest-watch-typeahead": "^2.2.2",
+    "lerna": "^7.4.2",
+    "preact": "^10.19.2"
   },
   "scripts": {
     "bootstrap": "lerna bootstrap --force-local",
@@ -20,5 +20,8 @@
   "keywords": [
     "preact",
     "yupiik"
+  ],
+  "workspaces": [
+    "packages/*"
   ]
 }

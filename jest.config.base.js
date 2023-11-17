@@ -8,7 +8,6 @@ module.exports = {
                 jsxFactory: 'h',
                 jsxFragment: 'Fragment',
                 sourcemap: true,
-                target: ['chrome58'],
                 loaders: {
                     '.test.js': 'jsx',
                     '.js': 'jsx',
@@ -25,5 +24,11 @@ module.exports = {
     reporters: [
         'default',
         ['jest-html-reporters', { 'publicPath': 'dist/test-reports', 'filename': 'report.html' }]
-    ]
+    ],
+    moduleNameMapper: {
+        '^preact$': '<rootDir>/../../node_modules/preact/dist/preact.min.js',
+        '^react$': 'preact/compat',
+        '^react-dom$': 'preact/compat',
+        '^@testing-library/preact$': '<rootDir>/../../node_modules/@testing-library/preact/dist/cjs/index.js',
+    },
 };

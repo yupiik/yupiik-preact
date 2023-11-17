@@ -1,6 +1,6 @@
-import { renderHook } from '@testing-library/preact-hooks';
 import { act } from 'preact/test-utils';
 import { useJsonRpc } from './index';
+import { renderHook } from '@testing-library/preact';
 
 const mocks = {
     fetch: {

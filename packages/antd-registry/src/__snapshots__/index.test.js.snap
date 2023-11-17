@@ -2,17 +2,17 @@
 
 exports[`Should render ant components 1`] = `
 HTMLCollection [
-  <section
-    class="ant-layout layout"
+  <div
+    class="ant-layout layout css-dev-only-do-not-override-nllxry"
   >
     <header
-      class="ant-layout-header"
+      class="ant-layout-header css-dev-only-do-not-override-nllxry"
     >
       <div
         class="logo"
       />
       <ul
-        class="ant-menu-overflow ant-menu ant-menu-root ant-menu-horizontal ant-menu-dark"
+        class="ant-menu-overflow ant-menu ant-menu-root ant-menu-horizontal ant-menu-dark css-dev-only-do-not-override-nllxry"
         data-menu-list="true"
         role="menu"
         tabindex="0"
@@ -76,47 +76,40 @@ HTMLCollection [
       />
     </header>
     <main
-      class="ant-layout-content"
+      class="ant-layout-content css-dev-only-do-not-override-nllxry"
       style="padding: 0px 50px;"
     >
       <nav
-        class="ant-breadcrumb"
+        class="ant-breadcrumb css-dev-only-do-not-override-nllxry"
         style="margin: 16px 0px;"
       >
         <ol>
           <li>
-            <span
+            <a
               class="ant-breadcrumb-link"
+              href="#/"
             >
-              <a
-                href="#/"
-              >
-                Home
-              </a>
-            </span>
-            <span
-              class="ant-breadcrumb-separator"
-            >
-              /
-            </span>
+              Home
+            </a>
+          </li>
+          <li
+            aria-hidden="true"
+            class="ant-breadcrumb-separator"
+          >
+            /
           </li>
           <li>
-            <span
+            <a
               class="ant-breadcrumb-link"
+              href="#//apps"
             >
-              <span>
-                Application List
-              </span>
-            </span>
-            <span
-              class="ant-breadcrumb-separator"
-            >
-              /
-            </span>
+              Application List
+            </a>
           </li>
+          
         </ol>
       </nav>
     </main>
-  </section>,
+  </div>,
 ]
 `;
