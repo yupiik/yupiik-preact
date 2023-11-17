@@ -29,6 +29,7 @@ module.exports = {
         '^preact$': '<rootDir>/../../node_modules/preact/dist/preact.min.js',
         '^react$': 'preact/compat',
         '^react-dom$': 'preact/compat',
+        '^react/jsx-runtime$': 'preact/jsx-runtime',
         '^@testing-library/preact$': '<rootDir>/../../node_modules/@testing-library/preact/dist/cjs/index.js',
     },
 };

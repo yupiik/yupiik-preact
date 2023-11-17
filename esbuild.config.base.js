@@ -6,8 +6,9 @@ const preactCompatPlugin = {
 
     setup(build) {
         const preact = path.join(process.cwd(), '..', '..', 'node_modules', 'preact', 'compat', 'dist', 'compat.module.js');
-        console.log(preact);
+        const preactRuntime = path.join(process.cwd(), '../../node_modules/preact/jsx-runtime/dist/jsxRuntime.module.js');
         build.onResolve({ filter: /^(react-dom|react)$/ }, () => ({ path: preact }));
+        build.onResolve({ filter: /^react\/jsx-runtime$/ }, () => ({ path: preactRuntime }));
     }
 };
 
