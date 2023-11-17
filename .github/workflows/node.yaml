@@ -23,10 +23,8 @@ jobs:
             node_modules
             packages/*/node_modules
       - name: 'Setup Project'
-        run: |
-          npm install
-          npm run bootstrap
+        run: npm install
       - name: 'Build'
-        run: lerna run build
+        run: npm run build
       - name: 'Test'
-        run: lerna run test
+        run: npm run test
