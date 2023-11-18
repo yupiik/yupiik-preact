@@ -1,0 +1,26 @@
+{
+  "name": "@yupiik/demo",
+  "description": "A sample application using react-bootrap + @yupiik/dynamic module.",
+  "main": "dist/index.js",
+  "mainSrc": "src/index.js",
+  "author": "Yupiik <contact@yupiik.com>",
+  "license": "ISC",
+  "keywords": [
+    "preact",
+    "yupiik"
+  ],
+  "scripts": {
+    "clean": "rm -Rf dist",
+    "build": "node build.js",
+    "start": "NODE_ENV=dev node build.js"
+  },
+  "devDependencies": {
+    "@yupiik/dynamic": "",
+    "@yupiik/use-json-rpc": "",
+    "@yupiik/preact-router-registry": "",
+    "@jsonforms/react": "3.1.0",
+    "@jsonforms/vanilla-renderers": "3.1.0",
+    "react-bootstrap": "^2.9.1",
+    "react-feather": "^2.0.10"
+  }
+}

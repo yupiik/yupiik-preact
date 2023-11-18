@@ -49,6 +49,7 @@ export const useJsonRpc = ({
                 ...(fetchOptions.headers || {}),
             };
             const options = {
+                method: 'POST',
                 headers,
                 signal: controller.signal,
                 body: typeof payload === 'string' ? payload : JSON.stringify(payload),

@@ -23,5 +23,8 @@
   ],
   "workspaces": [
     "packages/*"
-  ]
+  ],
+  "overrides": {
+    "react-bootstrap": "^2.9.1"
+  }
 }

@@ -1,6 +1,6 @@
 import * as antdIcons from '@ant-design/icons';
 import * as antd from 'antd';
-import { simpleComponent } from '@yupiik/dynamic/src/component/registry';
+import { simpleComponent } from '@yupiik/dynamic';
 
 const isComponent = it => {
     const c = it.charAt(0);

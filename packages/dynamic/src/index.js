@@ -7,7 +7,7 @@ import {
 } from './component/FromConfiguratonHoc';
 
 import {
-    HtmlRegistry,
+    HtmlRegistry, simpleComponent, nestedRegistry, simpleRegistry
 } from './component/registry';
 
 export {
@@ -15,4 +15,7 @@ export {
     ComponentRegistryContext,
     FromConfiguratonHoc,
     HtmlRegistry,
+    simpleComponent,
+    simpleRegistry,
+    nestedRegistry
 };

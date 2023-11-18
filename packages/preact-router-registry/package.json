@@ -1,6 +1,6 @@
 {
-  "name": "@yupiik/react-bootstrap-registry",
-  "description": "A component registry based on react-bootstrap to be used with @yupiik/dynamic components.",
+  "name": "@yupiik/preact-router-registry",
+  "description": "A component registry based on preact-router to be used with @yupiik/dynamic components.",
   "main": "dist/index.js",
   "mainSrc": "src/index.js",
   "author": "Yupiik <contact@yupiik.com>",
@@ -18,7 +18,7 @@
     "test:debug": "node --inspect-brk ../../node_modules/jest/bin/jest.js --runInBand"
   },
   "devDependencies": {
-    "react-bootstrap": "^2.9.1",
+    "preact-router": "^4.1.2",
     "@yupiik/dynamic": ""
   }
 }

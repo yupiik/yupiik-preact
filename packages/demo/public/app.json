@@ -1,0 +1,245 @@
+{
+    "name": "div",
+    "options": {
+        "configuration": {
+            "className": "wrapper",
+            "children": [
+                {
+                    "name": "nav",
+                    "options": {
+                        "configuration": {
+                            "id": "sidebar",
+                            "className": "sidebar js-sidebar",
+                            "children": [
+                                {
+                                    "name": "div",
+                                    "options": {
+                                        "configuration": {
+                                            "className": "sidebar-content js-simplebar",
+                                            "style": "background: #25282E",
+                                            "children": [
+                                                {
+                                                    "name": "a",
+                                                    "options": {
+                                                        "configuration": {
+                                                            "className": "sidebar-brand",
+                                                            "href": "/",
+                                                            "style": "display: flex",
+                                                            "children": [
+                                                                {
+                                                                    "name": "img",
+                                                                    "options": {
+                                                                        "configuration": {
+                                                                            "alt": "Logo",
+                                                                            "src": "//www.yupiik.io/images/favicon.png"
+                                                                        }
+                                                                    }
+                                                                },
+                                                                {
+                                                                    "name": "a",
+                                                                    "options": {
+                                                                        "configuration": {
+                                                                            "href": "#",
+                                                                            "style": "padding-top:6px;color:white;text-transform:uppercase",
+                                                                            "children": [
+                                                                                "Yupiik"
+                                                                            ]
+                                                                        }
+                                                                    }
+                                                                }
+                                                            ]
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "name": "ul",
+                                                    "options": {
+                                                        "configuration": {
+                                                            "className": "sidebar-nav",
+                                                            "children": [
+                                                                {
+                                                                    "name": "li",
+                                                                    "options": {
+                                                                        "configuration": {
+                                                                            "className": "sidebar-header",
+                                                                            "children": [
+                                                                                "Main Menu"
+                                                                            ]
+                                                                        }
+                                                                    }
+                                                                },
+                                                                {
+                                                                    "name": "li",
+                                                                    "options": {
+                                                                        "configuration": {
+                                                                            "className": "sidebar-item",
+                                                                            "children": [
+                                                                                {
+                                                                                    "name": "NavLink",
+                                                                                    "options": {
+                                                                                        "configuration": {
+                                                                                            "activeClassName": "active",
+                                                                                            "className": "sidebar-link",
+                                                                                            "href": "/home",
+                                                                                            "children": [
+                                                                                                {
+                                                                                                    "name": "Airplay",
+                                                                                                    "options": {
+                                                                                                        "configuration": {
+                                                                                                            "className": "align-middle",
+                                                                                                            "size": 18
+                                                                                                        }
+                                                                                                    }
+                                                                                                },
+                                                                                                {
+                                                                                                    "name": "span",
+                                                                                                    "options": {
+                                                                                                        "configuration": {
+                                                                                                            "className": "align-middle",
+                                                                                                            "children": [
+                                                                                                                "Home"
+                                                                                                            ]
+                                                                                                        }
+                                                                                                    }
+                                                                                                }
+                                                                                            ]
+                                                                                        }
+                                                                                    }
+                                                                                }
+                                                                            ]
+                                                                        }
+                                                                    }
+                                                                }
+                                                            ]
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "div",
+                    "options": {
+                        "configuration": {
+                            "id": "main",
+                            "className": "main",
+                            "children": [
+                                {
+                                    "name": "div",
+                                    "options": {
+                                        "configuration": {
+                                            "className": "h-100",
+                                            "children": [
+                                                {
+                                                    "name": "ErrorBoundary",
+                                                    "options": {
+                                                        "configuration": {
+                                                            "children": [
+                                                                {
+                                                                    "name": "Router",
+                                                                    "options": {
+                                                                        "configuration": {
+                                                                            "children": [
+                                                                                {
+                                                                                    "name": "div",
+                                                                                    "options": {
+                                                                                        "wrapperProps": {
+                                                                                            "default": true
+                                                                                        },
+                                                                                        "configuration": {
+                                                                                            "children": [
+                                                                                                "Welcome on the demo application."
+                                                                                            ]
+                                                                                        }
+                                                                                    }
+                                                                                },
+                                                                                {
+                                                                                    "name": "div",
+                                                                                    "options": {
+                                                                                        "wrapperProps": {
+                                                                                            "path": "/home"
+                                                                                        },
+                                                                                        "configuration": {
+                                                                                            "children": [
+                                                                                                "Welcome on the home page. To see a form click on this ",
+                                                                                                {
+                                                                                                    "name": "NavLink",
+                                                                                                    "options": {
+                                                                                                        "configuration": {
+                                                                                                            "href": "/form",
+                                                                                                            "children": [
+                                                                                                                "link"
+                                                                                                            ]
+                                                                                                        }
+                                                                                                    }
+                                                                                                },
+                                                                                                "."
+                                                                                            ]
+                                                                                        }
+                                                                                    }
+                                                                                },
+                                                                                {
+                                                                                    "name": "div",
+                                                                                    "options": {
+                                                                                        "wrapperProps": {
+                                                                                            "path": "/form"
+                                                                                        },
+                                                                                        "configuration": {
+                                                                                            "children": [
+                                                                                                {
+                                                                                                    "name": "Form",
+                                                                                                    "options": {
+                                                                                                        "configuration": {
+                                                                                                            "needsSecurity": false,
+                                                                                                            "successMessage": "Simple form submitted with success.",
+                                                                                                            "schema": {
+                                                                                                                "title": "Simple form",
+                                                                                                                "type": "object",
+                                                                                                                "required": [
+                                                                                                                    "title"
+                                                                                                                ],
+                                                                                                                "properties": {
+                                                                                                                    "title": {
+                                                                                                                        "type": "string",
+                                                                                                                        "title": "Title",
+                                                                                                                        "default": "A name"
+                                                                                                                    },
+                                                                                                                    "done": {
+                                                                                                                        "type": "boolean",
+                                                                                                                        "title": "Done",
+                                                                                                                        "default": false
+                                                                                                                    }
+                                                                                                                }
+                                                                                                            }
+                                                                                                        }
+                                                                                                    }
+                                                                                                }
+                                                                                            ]
+                                                                                        }
+                                                                                    }
+                                                                                }
+                                                                            ]
+                                                                        }
+                                                                    }
+                                                                }
+                                                            ]
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            ]
+        }
+    }
+}

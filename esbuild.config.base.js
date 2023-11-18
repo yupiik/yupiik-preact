@@ -17,25 +17,35 @@ const baseConf = {
     loader: { '.js': 'jsx' },
     entryPoints: ['./src/index.js'],
     plugins: [],
+    format: 'esm',
     bundle: true,
-    metafile: true,
-    minify: true,
+    minify: !process.env.SKIP_MINIFY,
     sourcemap: true,
+    metafile: true,
     legalComments: 'none',
     logLevel: 'info',
     target: ['chrome58', 'firefox57', 'safari11'],
     outdir: 'dist',
     jsxFactory: 'h',
     jsxFragment: 'Fragment',
-    // we just want to bundle this very lib and not dependencies
-    external: ['preact'],
+    external: [
+        '@ant-design/icons',
+        '@yupiik/dynamic',
+        'antd',
+        'json-logic-js',
+        'preact',
+        'react-bootstrap',
+        'react-feather',
+    ],
+    define: {
+        'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production'),
+        global: 'window',
+    },
     // we don't use it since we don't want to bundle shim.js by default, it is just an utility consumers can use
     // inject: ['./src/esbuild/shim.js'],
 };
 
-const build = async (
-    { conf, analyze } = { conf: false, analyze: true }
-) => {
+const build = async ({ conf, analyze } = { conf: false, analyze: true }) => {
     const result = await esbuild.build(conf || baseConf);
     if (analyze) {
         const analyze = await esbuild.analyzeMetafile(result.metafile);
@@ -43,12 +53,13 @@ const build = async (
     }
 };
 
-const buildWithCompat = ({
+const prepareWithCompat = ({
     conf,
     analyze,
+    mergeConfs,
 }) => {
-    const configuration = conf || baseConf;
-    return build({
+    const configuration = mergeConfs ? { ...baseConf, ...conf } : (conf || baseConf);
+    return {
         analyze,
         conf: {
             ...configuration,
@@ -57,7 +68,14 @@ const buildWithCompat = ({
                 preactCompatPlugin,
             ],
         },
-    });
+    };
+};
+
+const buildWithCompat = opts => build(prepareWithCompat(opts));
+const serveWithCompat = async opts => {
+    const ctx = await esbuild.context(prepareWithCompat(opts).conf);
+    await ctx.watch();
+    await ctx.serve(opts.serve);
 };
 
 module.exports = {
@@ -67,4 +85,5 @@ module.exports = {
 
     build,
     buildWithCompat,
+    serveWithCompat,
 };

@@ -109,8 +109,14 @@ export const MyComponent = () => (
         options={{
             name: 'component1',
             options: {
-                // whatever options component1 supports
-            }
+                configuration: {
+                    // whatever options component1 supports
+                },
+                wrapperProps: {
+                    // whatever must be bound on the HoC which will wrap component1
+                    // (can be useful with preact-router like components for ex which require the next immediate child to have specific props)
+                },
+            },
         }}
     />
 );
@@ -128,11 +134,13 @@ It is mainly a matter of abstracting the communication with the backend for the 
 
 `@yupiik/antd-registry` provides a component registry which works with `Dynamic` or `FromConfiguratonHoc`.
 
-== React Bootstrap (@yupiik/react-bootstrap)
+== React component based libraries (Bootstrap, Feather, ...)
 
-`@yupiik/react-bootstrap` integrates `react-bootstrap` registry with `Dynamic` or `FromConfigurationHoc`.
+`react-bootstrap` can be integrated importing it (`import * as reactBootstrap`) and converting the import to a registry using `@yupiik/dynamic` `nestedRegistry` fonction.
 
-Components are integrated from the wildcard import on `react-bootstrap`, as of today here is the list:
+Similarly `react-feather` which does not use nested components can be converted to a registry the same way but using `simpleRegistry` function is more efficient instead of `nestedRegistry`.
+
+Using this method on `react-bootstrap`, you will get in in the registry, as of today, the following list of component:
 
 * Accordion
 * Accordion.Button

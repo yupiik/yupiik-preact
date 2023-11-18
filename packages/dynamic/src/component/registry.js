@@ -1,4 +1,4 @@
-import { h } from 'preact';
+import { Component, h } from 'preact';
 import { FromConfiguratonHoc } from './FromConfiguratonHoc';
 
 export const simpleComponent = nameOrComponent => ({
@@ -16,7 +16,13 @@ export const simpleComponent = nameOrComponent => ({
             if (typeof it === 'object' && it.options) {
                 if (it.name) { // not wrapped, we tolerate it since it is simpler to write
                     return (
-                        <FromConfiguratonHoc registry={registry} options={it} parentState={state} parentDispatch={dispatch} />
+                        <FromConfiguratonHoc
+                            {...(it.options.wrapperProps || {})}
+                            registry={registry}
+                            options={it}
+                            parentState={state}
+                            parentDispatch={dispatch}
+                        />
                     );
                 }
                 return (
@@ -31,6 +37,68 @@ export const simpleComponent = nameOrComponent => ({
         </Comp>
     );
 };
+
+const isComponent = it =>
+    it.charAt(0) === it.charAt(0).toUpperCase() &&
+    !it.includes('$') &&
+    !it.includes('_') &&
+    !it.endsWith('Props');
+
+/**
+ * Create a registry from immediately nested entries.
+ * @param {object} an import of components.
+ * @returns a registry wrapping components.
+ */
+export const simpleRegistry = object => Object
+    .keys(object)
+    .reduce((a, i) => {
+        a[i] = simpleComponent(object[i]);
+        return a;
+    }, {});
+
+/**
+ * Create a registry from immediately nested entries and their children.
+ * @param {object} an import of components.
+ * @returns a registry wrapping components.
+ */
+export const nestedRegistry = object => Object
+    .keys(object)
+    .filter(it => isComponent(it))
+    .reduce((a, i) => {
+        const wrapper = object[i];
+
+        a[i] = simpleComponent(wrapper);
+
+        // subcomponents
+        Object
+            .keys(wrapper)
+            .filter(it => isComponent(it))
+            .forEach(it => {
+                a[`${i}.${it}`] = simpleComponent(wrapper[it]);
+            });
+
+        return a;
+    }, {});
+
+class SimpleErrorBoundary extends Component {
+    state = { error: null }
+
+    static getDerivedStateFromError(error) {
+        return { error: error.message }
+    }
+
+    componentDidCatch(error) {
+        console.error(error)
+        this.setState({ error: error.message })
+    }
+
+    render() {
+        if (this.state.error) {
+            return <p>Oh no! An error occured: {this.state.error}</p>
+        }
+        return this.props.children;
+    }
+}
 
 export const HtmlRegistry = {
     a: simpleComponent('a'),
@@ -141,4 +209,7 @@ export const HtmlRegistry = {
     var: simpleComponent('var'),
     video: simpleComponent('video'),
     wbr: simpleComponent('wbr'),
+
+    // not strictly html but from core react
+    ErrorBoundary: simpleComponent(SimpleErrorBoundary),
 };

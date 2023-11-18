@@ -1,12 +1,13 @@
 import { createContext, h } from 'preact';
 import { useContext } from 'preact/hooks';
+import { HtmlRegistry } from './registry';
 
 const getErrorComponent = (registry) => registry.error || (({ children }) => (<div className="error">{children})</div>));
 
 const NoComponentFound = (registry, name) => {
     const Error = getErrorComponent(registry);
     return (
-        <Error>No component {name} found!</Error>
+        <Error name={name || ''}>No component {name || '?'} found!</Error>
     );
 }
 
@@ -27,7 +28,10 @@ export const Dynamic = ({
         return (<NoComponentFound registry={internalRegistry} name={name} />);
     }
 
-    const Component = internalRegistry[name];
+    let Component = internalRegistry[name];
+    if (!Component) { // fallback by default
+        Component = HtmlRegistry[name];
+    }
     if (!Component) {
         return (<NoComponentFound registry={internalRegistry} name={name} />);
     }
