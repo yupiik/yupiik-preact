@@ -1,4 +1,4 @@
-import { Component, h } from 'preact';
+import { h, Component, cloneElement } from 'preact';
 import { FromConfiguratonHoc } from './FromConfiguratonHoc';
 
 export const simpleComponent = nameOrComponent => ({
@@ -13,11 +13,15 @@ export const simpleComponent = nameOrComponent => ({
         .filter(it => it !== undefined)
         .map(it => {
             // all the trick is there, wrap the children with FromConfiguratonHoc to enable the configuration to propagate properly 
-            if (typeof it === 'object' && it.options) {
+            if (it && typeof it === 'object' && it.options) {
                 if (it.name) { // not wrapped, we tolerate it since it is simpler to write
+                    let otherProps = it.options.wrapperProps || {};
+                    if (it.keepExtendedProps && props) {
+                        otherProps = { ...otherProps, ...props };
+                    }
                     return (
                         <FromConfiguratonHoc
-                            {...(it.options.wrapperProps || {})}
+                            {...otherProps}
                             registry={registry}
                             options={it}
                             parentState={state}
@@ -80,6 +84,7 @@ export const nestedRegistry = object => Object
         return a;
     }, {});
 
+// will generally be overriden by apps but enables to get a default
 class SimpleErrorBoundary extends Component {
     state = { error: null }
 
@@ -99,6 +104,12 @@ class SimpleErrorBoundary extends Component {
         return this.props.children;
     }
 }
+
+const Conditional = ({ children, condition, ...rest }) => {
+    return condition && children.map(it => {
+        return cloneElement(it, rest || {});
+    });
+};
 
 export const HtmlRegistry = {
     a: simpleComponent('a'),
@@ -210,6 +221,8 @@ export const HtmlRegistry = {
     video: simpleComponent('video'),
     wbr: simpleComponent('wbr'),
 
-    // not strictly html but from core react
+    // not strictly html but from "core"
     ErrorBoundary: simpleComponent(SimpleErrorBoundary),
+    FromConfiguratonHoc,
+    Conditional: simpleComponent(Conditional),
 };

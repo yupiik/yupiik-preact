@@ -166,19 +166,69 @@
                                                                                         },
                                                                                         "configuration": {
                                                                                             "children": [
-                                                                                                "Welcome on the home page. To see a form click on this ",
                                                                                                 {
-                                                                                                    "name": "NavLink",
+                                                                                                    "name": "ul",
                                                                                                     "options": {
                                                                                                         "configuration": {
-                                                                                                            "href": "/form",
                                                                                                             "children": [
-                                                                                                                "link"
+                                                                                                                {
+                                                                                                                    "name": "li",
+                                                                                                                    "options": {
+                                                                                                                        "configuration": {
+                                                                                                                            "children": [
+                                                                                                                                "Welcome on the home page."
+                                                                                                                            ]
+                                                                                                                        }
+                                                                                                                    }
+                                                                                                                },
+                                                                                                                {
+                                                                                                                    "name": "li",
+                                                                                                                    "options": {
+                                                                                                                        "configuration": {
+                                                                                                                            "children": [
+                                                                                                                                "To see a form and how it can be sumitted fo on ",
+                                                                                                                                {
+                                                                                                                                    "name": "NavLink",
+                                                                                                                                    "options": {
+                                                                                                                                        "configuration": {
+                                                                                                                                            "href": "/form",
+                                                                                                                                            "children": [
+                                                                                                                                                "form"
+                                                                                                                                            ]
+                                                                                                                                        }
+                                                                                                                                    }
+                                                                                                                                },
+                                                                                                                                " page,"
+                                                                                                                            ]
+                                                                                                                        }
+                                                                                                                    }
+                                                                                                                },
+                                                                                                                {
+                                                                                                                    "name": "li",
+                                                                                                                    "options": {
+                                                                                                                        "configuration": {
+                                                                                                                            "children": [
+                                                                                                                                "To see how to initialize data from a remote call go on ",
+                                                                                                                                {
+                                                                                                                                    "name": "NavLink",
+                                                                                                                                    "options": {
+                                                                                                                                        "configuration": {
+                                                                                                                                            "href": "/init",
+                                                                                                                                            "children": [
+                                                                                                                                                "init"
+                                                                                                                                            ]
+                                                                                                                                        }
+                                                                                                                                    }
+                                                                                                                                },
+                                                                                                                                " page."
+                                                                                                                            ]
+                                                                                                                        }
+                                                                                                                    }
+                                                                                                                }
                                                                                                             ]
                                                                                                         }
                                                                                                     }
-                                                                                                },
-                                                                                                "."
+                                                                                                }
                                                                                             ]
                                                                                         }
                                                                                     }
@@ -195,6 +245,7 @@
                                                                                                     "name": "Form",
                                                                                                     "options": {
                                                                                                         "configuration": {
+                                                                                                            "jsonRpcMethod": "demo.form.submit",
                                                                                                             "needsSecurity": false,
                                                                                                             "successMessage": "Simple form submitted with success.",
                                                                                                             "schema": {
@@ -216,6 +267,236 @@
                                                                                                                     }
                                                                                                                 }
                                                                                                             }
+                                                                                                        }
+                                                                                                    }
+                                                                                                }
+                                                                                            ]
+                                                                                        }
+                                                                                    }
+                                                                                },
+                                                                                {
+                                                                                    "name": "div",
+                                                                                    "options": {
+                                                                                        "wrapperProps": {
+                                                                                            "path": "/init"
+                                                                                        },
+                                                                                        "configuration": {
+                                                                                            "children": [
+                                                                                                {
+                                                                                                    "name": "JsonRpcDataLoader",
+                                                                                                    "options": {
+                                                                                                        "configuration": {
+                                                                                                            "hookProps": {
+                                                                                                                "payload": {
+                                                                                                                    "jsonrpc": "2.0",
+                                                                                                                    "method": "demo.init"
+                                                                                                                },
+                                                                                                                "needsSecurity": false
+                                                                                                            },
+                                                                                                            "wrapperConfiguration": {
+                                                                                                                "name": "div",
+                                                                                                                "props": {
+                                                                                                                    "className": "init-wrapper"
+                                                                                                                }
+                                                                                                            },
+                                                                                                            "children": [
+                                                                                                                {
+                                                                                                                    "name": "p",
+                                                                                                                    "options": {
+                                                                                                                        "configuration": {
+                                                                                                                            "children": [
+                                                                                                                                "This page will load some data from a JSON-RPC call then show it under this text:"
+                                                                                                                            ]
+                                                                                                                        }
+                                                                                                                    }
+                                                                                                                },
+                                                                                                                {
+                                                                                                                    "name": "Conditional",
+                                                                                                                    "options": {
+                                                                                                                        "configuration": {
+                                                                                                                            "condition": {
+                                                                                                                                "jsonLogic": {
+                                                                                                                                    "var": "props.loading"
+                                                                                                                                }
+                                                                                                                            },
+                                                                                                                            "children": [
+                                                                                                                                {
+                                                                                                                                    "name": "div",
+                                                                                                                                    "options": {
+                                                                                                                                        "configuration": {
+                                                                                                                                            "className": "loader",
+                                                                                                                                            "children": [
+                                                                                                                                                {
+                                                                                                                                                    "name": "Placeholder",
+                                                                                                                                                    "options": {
+                                                                                                                                                        "configuration": {
+                                                                                                                                                            "xs": 6
+                                                                                                                                                        }
+                                                                                                                                                    }
+                                                                                                                                                },
+                                                                                                                                                {
+                                                                                                                                                    "name": "Placeholder",
+                                                                                                                                                    "options": {
+                                                                                                                                                        "configuration": {
+                                                                                                                                                            "xs": 6
+                                                                                                                                                        }
+                                                                                                                                                    }
+                                                                                                                                                },
+                                                                                                                                                {
+                                                                                                                                                    "name": "Placeholder",
+                                                                                                                                                    "options": {
+                                                                                                                                                        "configuration": {
+                                                                                                                                                            "xs": 6
+                                                                                                                                                        }
+                                                                                                                                                    }
+                                                                                                                                                }
+                                                                                                                                            ]
+                                                                                                                                        }
+                                                                                                                                    }
+                                                                                                                                }
+                                                                                                                            ]
+                                                                                                                        }
+                                                                                                                    }
+                                                                                                                },
+                                                                                                                {
+                                                                                                                    "name": "Conditional",
+                                                                                                                    "keepExtendedProps": true,
+                                                                                                                    "options": {
+                                                                                                                        "configuration": {
+                                                                                                                            "condition": {
+                                                                                                                                "jsonLogic": {
+                                                                                                                                    "and": [
+                                                                                                                                        {
+                                                                                                                                            "!=": [
+                                                                                                                                                "props.loading",
+                                                                                                                                                true
+                                                                                                                                            ]
+                                                                                                                                        },
+                                                                                                                                        {
+                                                                                                                                            "var": "props.error"
+                                                                                                                                        }
+                                                                                                                                    ]
+                                                                                                                                }
+                                                                                                                            },
+                                                                                                                            "children": [
+                                                                                                                                {
+                                                                                                                                    "name": "div",
+                                                                                                                                    "options": {
+                                                                                                                                        "configuration": {
+                                                                                                                                            "className": "error",
+                                                                                                                                            "children": [
+                                                                                                                                                {
+                                                                                                                                                    "name": "Alert",
+                                                                                                                                                    "options": {
+                                                                                                                                                        "configuration": {
+                                                                                                                                                            "variant": "danger",
+                                                                                                                                                            "children": [
+                                                                                                                                                                {
+                                                                                                                                                                    "name": "Alert.Heading",
+                                                                                                                                                                    "options": {
+                                                                                                                                                                        "configuration": {
+                                                                                                                                                                            "children": [
+                                                                                                                                                                                "An error occurred"
+                                                                                                                                                                            ]
+                                                                                                                                                                        }
+                                                                                                                                                                    }
+                                                                                                                                                                },
+                                                                                                                                                                {
+                                                                                                                                                                    "name": "p",
+                                                                                                                                                                    "options": {
+                                                                                                                                                                        "configuration": {
+                                                                                                                                                                            "children": [
+                                                                                                                                                                                {
+                                                                                                                                                                                    "jsonLogic": {
+                                                                                                                                                                                        "var": "props.error.message"
+                                                                                                                                                                                    }
+                                                                                                                                                                                }
+                                                                                                                                                                            ]
+                                                                                                                                                                        }
+                                                                                                                                                                    }
+                                                                                                                                                                }
+                                                                                                                                                            ]
+                                                                                                                                                        }
+                                                                                                                                                    }
+                                                                                                                                                }
+                                                                                                                                            ]
+                                                                                                                                        }
+                                                                                                                                    }
+                                                                                                                                }
+                                                                                                                            ]
+                                                                                                                        }
+                                                                                                                    }
+                                                                                                                },
+                                                                                                                {
+                                                                                                                    "name": "Conditional",
+                                                                                                                    "keepExtendedProps": true,
+                                                                                                                    "options": {
+                                                                                                                        "configuration": {
+                                                                                                                            "condition": {
+                                                                                                                                "jsonLogic": {
+                                                                                                                                    "and": [
+                                                                                                                                        {
+                                                                                                                                            "!=": [
+                                                                                                                                                "props.loading",
+                                                                                                                                                true
+                                                                                                                                            ]
+                                                                                                                                        },
+                                                                                                                                        {
+                                                                                                                                            "var": "props.data"
+                                                                                                                                        }
+                                                                                                                                    ]
+                                                                                                                                }
+                                                                                                                            },
+                                                                                                                            "children": [
+                                                                                                                                {
+                                                                                                                                    "name": "div",
+                                                                                                                                    "keepExtendedProps": true,
+                                                                                                                                    "options": {
+                                                                                                                                        "configuration": {
+                                                                                                                                            "className": "data",
+                                                                                                                                            "children": [
+                                                                                                                                                "Name: ",
+                                                                                                                                                {
+                                                                                                                                                    "name": "b",
+                                                                                                                                                    "keepExtendedProps": true,
+                                                                                                                                                    "options": {
+                                                                                                                                                        "configuration": {
+                                                                                                                                                            "children": [
+                                                                                                                                                                {
+                                                                                                                                                                    "jsonLogic": {
+                                                                                                                                                                        "var": "props.data.result.user.name"
+                                                                                                                                                                    }
+                                                                                                                                                                }
+                                                                                                                                                            ]
+                                                                                                                                                        }
+                                                                                                                                                    }
+                                                                                                                                                },
+                                                                                                                                                " and age: ",
+                                                                                                                                                {
+                                                                                                                                                    "name": "em",
+                                                                                                                                                    "keepExtendedProps": true,
+                                                                                                                                                    "options": {
+                                                                                                                                                        "configuration": {
+                                                                                                                                                            "children": [
+                                                                                                                                                                {
+                                                                                                                                                                    "jsonLogic": {
+                                                                                                                                                                        "var": "props.data.result.user.age"
+                                                                                                                                                                    }
+                                                                                                                                                                }
+                                                                                                                                                            ]
+                                                                                                                                                        }
+                                                                                                                                                    }
+                                                                                                                                                },
+                                                                                                                                                "."
+                                                                                                                                            ]
+                                                                                                                                        }
+                                                                                                                                    }
+                                                                                                                                }
+                                                                                                                            ]
+                                                                                                                        }
+                                                                                                                    }
+                                                                                                                }
+                                                                                                            ]
                                                                                                         }
                                                                                                     }
                                                                                                 }

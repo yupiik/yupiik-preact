@@ -4,7 +4,7 @@ import { expect } from 'expect';
 import { FromConfiguratonHoc } from '../../dynamic/src';
 import { PreactRouterRegistry } from './index';
 
-test('Should render react-bootstrap components', () => {
+test('Should render preact-router components', () => {
     // statc part (JSON friendly)
     const opts = {
         name: 'Router',

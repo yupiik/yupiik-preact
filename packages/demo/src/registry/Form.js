@@ -2,7 +2,7 @@ import { h, Fragment } from 'preact';
 import { useJsonRpc } from '@yupiik/use-json-rpc';
 import { JsonForms } from '@jsonforms/react';
 import { vanillaCells, vanillaRenderers } from '@jsonforms/vanilla-renderers'; // todo: bootstrap renderer
-import { useEffect, useMemo, useState } from 'preact/hooks';
+import { useMemo, useState } from 'preact/hooks';
 import { Alert, Button, Form, Placeholder } from 'react-bootstrap';
 import { FromConfiguratonHoc } from '@yupiik/dynamic';
 
@@ -39,7 +39,7 @@ export const CustomForm = ({
             {submit && !loading && error && <>
                 <Alert variant="danger">
                     <Alert.Heading>An error occurred</Alert.Heading>
-                    <p>{error || 'unknown error'}</p>
+                    <p>{error.message || error || 'unknown error'}</p>
                 </Alert>
             </>}
             {submit && !loading && data && successMessage && <>

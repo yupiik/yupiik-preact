@@ -33,6 +33,7 @@ export const FromConfiguratonHoc = ({
     parentDispatch = undefined,
     options: {
         name,
+        keepExtendedProps = false, // if some wrapper injects properties, forward them to the wrappped components (routers often do that, conditional does too)
         options: {
             useReducerCallback: {
                 initialState = undefined,
@@ -43,6 +44,7 @@ export const FromConfiguratonHoc = ({
             configuration = {},
         } = {},
     },
+    ...rest
 }) => {
     const [state, dispatch] = useReducer(
         (currentState, action) => {
@@ -93,18 +95,21 @@ export const FromConfiguratonHoc = ({
     const computedOptions = useMemo(() => {
         const opts = Object
             .keys(configuration)
-            .reduce((aggregator, name) => {
-                const value = configuration[name];
-                aggregator[name] = typeof value === 'object' ?
-                    rewriteProp(value, {
-                        parentState,
-                        parentDispatch,
-                        state,
-                        dispatch,
-                    }) :
-                    value;
-                return aggregator;
-            }, {});
+            .reduce(
+                (aggregator, name) => {
+                    const value = configuration[name];
+                    aggregator[name] = typeof value === 'object' ?
+                        rewriteProp(value, {
+                            parentState,
+                            parentDispatch,
+                            state,
+                            dispatch,
+                            props: rest,
+                        }) :
+                        value;
+                    return aggregator;
+                },
+                !keepExtendedProps ? {} : { ...(rest || {}) });
 
         const callbackOpts = Object
             .keys(callbacks)
@@ -116,12 +121,13 @@ export const FromConfiguratonHoc = ({
                     state,
                     dispatch,
                     event: e,
+                    props: rest,
                 });
                 return aggregator;
             }, {});
 
-        return { name, options: { state, dispatch, ...opts, ...callbackOpts } };
-    }, [callbacks, configuration, state, parentState]);
+        return { name, options: { ...opts, ...callbackOpts, state, dispatch } };
+    }, [callbacks, configuration, state, parentState, rest]);
 
     return (
         <Dynamic
