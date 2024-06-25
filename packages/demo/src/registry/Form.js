@@ -1,10 +1,11 @@
 import { h, Fragment } from 'preact';
 import { useJsonRpc } from '@yupiik/use-json-rpc';
 import { JsonForms } from '@jsonforms/react';
-import { vanillaCells, vanillaRenderers } from '@jsonforms/vanilla-renderers'; // todo: bootstrap renderer
+// import { vanillaCells, vanillaRenderers } from '@jsonforms/vanilla-renderers'; // todo: bootstrap renderer
 import { useMemo, useState } from 'preact/hooks';
 import { Alert, Button, Form, Placeholder } from 'react-bootstrap';
 import { FromConfiguratonHoc } from '@yupiik/dynamic';
+import { bootstrapCells, bootstrapRenderers } from '../forms/bootstrap.form.renderers';
 
 // todo: handle submit action using json-logic
 export const CustomForm = ({
@@ -60,8 +61,8 @@ export const CustomForm = ({
                 <JsonForms
                     {...opts}
                     data={formData.data}
-                    renderers={vanillaRenderers}
-                    cells={vanillaCells}
+                    renderers={bootstrapRenderers}
+                    cells={bootstrapCells}
                     onChange={data => {
                         setFormData(data);
                         setSubmit(false);
